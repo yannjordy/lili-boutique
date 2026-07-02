@@ -347,6 +347,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 .welcome-name{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--text-1);letter-spacing:-.02em;animation:welcomeText .8s .3s both;}
 .welcome-tag{font-size:.82rem;color:var(--text-3);margin-top:4px;animation:welcomeText .8s .5s both;}
 @keyframes welcomeText{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+.offline-banner{position:fixed;top:0;left:0;right:0;z-index:99998;padding:8px 14px;background:#FF9500;color:#0C0E14;font-size:.78rem;font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;animation:offlineSlide .35s ease;}@keyframes offlineSlide{0%{transform:translateY(-100%)}100%{transform:none}}
 .install-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-full);border:1.5px solid var(--border);background:var(--surface);color:var(--text-1);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all var(--t-fast);}
 .install-btn:hover{border-color:var(--primary);color:var(--primary);}
 .install-btn svg{width:16px;height:16px;}
@@ -399,7 +400,16 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
   </div>
 
   <section class="discover-section">
-    <div class="discover-grid" id="productsGrid"></div>
+    <div class="discover-grid" id="productsGrid">
+<div class="tile-card" style="animation-delay:0ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:70%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:50%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:35%;border-radius:4px"></div></div></div>
+<div class="tile-card" style="animation-delay:60ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:65%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:45%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:40%;border-radius:4px"></div></div></div>
+<div class="tile-card" style="animation-delay:120ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:75%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:55%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:30%;border-radius:4px"></div></div></div>
+<div class="tile-card" style="animation-delay:180ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:60%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:50%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:45%;border-radius:4px"></div></div></div>
+<div class="tile-card" style="animation-delay:240ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:70%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:40%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:35%;border-radius:4px"></div></div></div>
+<div class="tile-card" style="animation-delay:300ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:65%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:50%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:40%;border-radius:4px"></div></div></div>
+<div class="tile-card" style="animation-delay:360ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:75%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:55%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:30%;border-radius:4px"></div></div></div>
+<div class="tile-card" style="animation-delay:420ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:60%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:45%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:45%;border-radius:4px"></div></div></div>
+</div>
     <div class="snap-empty" id="emptyState" style="display:none">
       <div class="snap-empty-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
       <h3>Aucun produit trouvé</h3>
@@ -460,12 +470,29 @@ async function loadProducts(){
       price:p.prix||0,prix_barre:p.prix_barre||0,stars:4,image:p.main_image||(images[0]||''),images,
       desc:p.description||'',stock:p.stock||0,category:p.categorie||'',hot:false
     }});
+    try{localStorage.setItem('_prods',JSON.stringify(STATE.products));localStorage.setItem('_conf',JSON.stringify(STATE.config));}catch(e){}
     STATE.filtered=[...STATE.products];
     document.getElementById('totalProducts').textContent=STATE.products.length;
     filterProducts();
-
+    const ob=document.getElementById('offlineBanner');
+    if(ob)ob.remove();
   }catch(e){
     console.error('Error:',e);
+    try{
+      const cp=localStorage.getItem('_prods'),cc=localStorage.getItem('_conf');
+      if(cp){STATE.products=JSON.parse(cp);STATE.config=JSON.parse(cc);
+        if(STATE.config?.general?.nom)document.getElementById('shopName').textContent=STATE.config.general.nom;
+        if(STATE.config?.general?.description)document.getElementById('shopDesc').textContent=STATE.config.general.description;
+        STATE.filtered=[...STATE.products];
+        document.getElementById('totalProducts').textContent=STATE.products.length;
+        filterProducts();
+        if(!document.getElementById('offlineBanner')){
+          const b=document.createElement('div');b.id='offlineBanner';b.className='offline-banner';
+          b.innerHTML='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg> Mode hors ligne — données affichées depuis le cache';
+          document.body.prepend(b);
+        }return;
+      }
+    }catch(e2){}
     showToast('Erreur de chargement','error');
   }
 }
