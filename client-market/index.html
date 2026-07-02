@@ -10,6 +10,7 @@
 <link rel="icon" type="image/jpeg" href="lili.jpg">
 <link rel="apple-touch-icon" href="lili.jpg">
 <link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.json">
 <style>
 :root{--primary:#14B8A6;--primary-dark:#0F766E;--primary-glow:rgba(20,184,166,.4);--primary-soft:rgba(20,184,166,.12);--bg:#0C0E14;--bg-2:#13161F;--bg-card:#181C28;--surface:#1E2235;--surface-2:#252A3E;--border:rgba(255,255,255,.07);--border-accent:rgba(20,184,166,.35);--header-bg:rgba(12,14,20,.92);--text-1:#F0F4FF;--text-2:#8896B3;--text-3:#4A556B;--gold:#F5A623;--silver:#9BB3CC;--bronze:#C47D4A;--success:#00D68F;--error:#FF4D6D;--radius-s:10px;--radius-m:16px;--radius-l:22px;--radius-xl:30px;--radius-full:9999px;--hdr-h:112px;--shadow-sm:0 2px 8px rgba(0,0,0,.25);--shadow:0 4px 20px rgba(0,0,0,.35);--shadow-lg:0 8px 40px rgba(0,0,0,.5);--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--ease-bounce:cubic-bezier(.34,1.56,.64,1);--ease-out:cubic-bezier(.4,0,.2,1);--t-fast:.18s var(--ease-out);--t-norm:.28s var(--ease-out);--t-bounce:.38s var(--ease-bounce);--shadow-card:0 8px 32px rgba(0,0,0,.5);--shadow-glow:0 0 30px var(--primary-glow);}
 body.light{--bg:#F8FAFC;--bg-2:#F1F5F9;--bg-card:#FFFFFF;--surface:#F1F5F9;--surface-2:#E2E8F0;--border:rgba(0,0,0,.08);--border-accent:rgba(20,184,166,.25);--header-bg:rgba(248,250,252,.92);--text-1:#0F172A;--text-2:#475569;--text-3:#94A3B8;--shadow-sm:0 2px 8px rgba(0,0,0,.06);--shadow:0 4px 20px rgba(0,0,0,.08);--shadow-lg:0 8px 40px rgba(0,0,0,.12);}
@@ -361,7 +362,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
   <div class="welcome-tag">Boutique digitale</div>
 </div>
 <script>
-(function(){var d=document.getElementById('welcomeSplash');if(!d)return;var t=setTimeout(function(){try{d.style.display='none'}catch(e){}},2200);window._splashFallback=t;})();
+(function(){var d=document.getElementById('welcomeSplash');if(!d)return;var t=setTimeout(function(){try{d.style.display='none'}catch(e){}},1200);window._splashFallback=t;})();
 </script>
 
 <header class="app-header" id="mainHeader">
@@ -454,7 +455,10 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 async function loadProducts(){
   try{
     const SHOP_ID='f9f81eea-9dbf-4c96-ad56-f7e2afcc35e7';
-    const boutiques=await _g('parametres_boutique',{'user_id':'eq.'+SHOP_ID,'select':'config'});
+    const [boutiques,data]=await Promise.all([
+      _g('parametres_boutique',{'user_id':'eq.'+SHOP_ID,'select':'config'}),
+      _g('produits',{'user_id':'eq.'+SHOP_ID,'statut':'eq.published','order':'created_at.desc'})
+    ]);
     const boutique=boutiques?.[0]||null;
     STATE.config=boutique?.config||null;
     if(boutique?.config?.general){
@@ -462,7 +466,6 @@ async function loadProducts(){
       if(g.nom)document.getElementById('shopName').textContent=g.nom;
       if(g.description)document.getElementById('shopDesc').textContent=g.description;
     }
-    const data=await _g('produits',{'user_id':'eq.'+SHOP_ID,'statut':'eq.published','order':'created_at.desc'});
     STATE.products=(data||[]).map(p=>{
       const images=Array.isArray(p.images)?p.images:(p.main_image?[p.main_image]:[]);
       return{

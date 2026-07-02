@@ -1,5 +1,5 @@
-const CACHE = 'marketpro-v1';
-const URLS = ['/', '/dashboard.html', '/manifest.json', '/assets/logo.svg', '/assets/logo-icon.svg'];
+const CACHE = 'lilistore-v1';
+const URLS = ['/', 'index.html', 'manifest.json', 'lili.jpg', 'mtn-logo.png', 'orange-money.png', 'css/style.css', 'js/payment.js', 'js/pwa.js'];
 
 self.addEventListener('install', e => {
   self.skipWaiting();

@@ -1,18 +1,19 @@
 {
-  "name": "MarketPlace Pro",
-  "short_name": "MarketPro",
-  "description": "La marketplace nouvelle generation — rapide, fluide, professionnelle",
+  "name": "Lili-Store Digital",
+  "short_name": "Lili-Store",
+  "description": "Boutique digitale — rapide, fluide, professionnelle",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0C0E14",
-  "theme_color": "#FF6B00",
+  "theme_color": "#14B8A6",
   "scope": "/",
   "lang": "fr-FR",
   "categories": ["shopping", "business"],
   "icons": [
-    { "src": "/assets/logo-icon.svg", "sizes": "64x64", "type": "image/svg+xml" },
-    { "src": "/assets/logo.svg", "sizes": "192x192", "type": "image/svg+xml" }
+    { "src": "lili.jpg", "sizes": "64x64", "type": "image/jpeg" },
+    { "src": "lili.jpg", "sizes": "192x192", "type": "image/jpeg" },
+    { "src": "lili.jpg", "sizes": "512x512", "type": "image/jpeg" }
   ],
   "prefer_related_applications": false,
   "related_applications": []
