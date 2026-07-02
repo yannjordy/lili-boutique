@@ -1,0 +1,25 @@
+apple/
+section2_tableau/
+cardi-react/
+Cline/
+oda-market/
+oda-market-analysis/
+oda-seller/
+Originals/
+Référence API_files/
+.idea/
+*.zip
+*.tgz
+*.gz
+__pycache__/
+node_modules/
+admin-local.html
+admin-simple.html
+admin-test.html
+test.html
+test-fetch.html
+serve.sh
+diag.html
+mock-paiement-server.js
+package.json
+paiement-simulateur.html

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary:#FF6B00;--primary-dark:#D45B00;--primary-glow:rgba(255,107,0,.4);
+  --primary-soft:rgba(255,107,0,.12);--bg:#0C0E14;--bg-2:#13161F;
+  --bg-card:#181C28;--surface:#1E2235;--surface-2:#252A3E;
+  --border:rgba(255,255,255,.07);--border-accent:rgba(255,107,0,.35);
+  --text-1:#F0F4FF;--text-2:#8896B3;--text-3:#4A556B;
+  --gold:#F5A623;--success:#00D68F;--error:#FF4D6D;
+  --radius-s:10px;--radius-m:16px;--radius-l:22px;--radius-xl:30px;--radius-full:9999px;
+  --hdr-h:112px;
+  --font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+  --ease-bounce:cubic-bezier(.34,1.56,.64,1);--ease-out:cubic-bezier(.4,0,.2,1);
+  --t-fast:.18s var(--ease-out);--t-norm:.28s var(--ease-out);--t-bounce:.38s var(--ease-bounce);
+  --shadow-card:0 8px 32px rgba(0,0,0,.5);--shadow-glow:0 0 30px var(--primary-glow);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-1);min-height:100vh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom,20px);}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--surface-2);border-radius:99px;}
+
+.snap-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--radius-full);font-family:var(--font-body);font-size:.88rem;font-weight:700;cursor:pointer;border:none;transition:all var(--t-bounce);}
+.snap-btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 4px 16px var(--primary-glow);}
+.snap-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--primary-glow);}
+.snap-btn-primary:active{transform:scale(.97);}
+.snap-btn-outline{background:var(--surface);border:1.5px solid var(--border);color:var(--text-2);}
+.snap-btn-outline:hover{border-color:var(--border-accent);color:var(--primary);}
+.snap-btn-outline:active{transform:scale(.97);}
