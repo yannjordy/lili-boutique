@@ -1,0 +1,23 @@
+{
+  "rewrites": [
+    { "source": "/admin/(.*)", "destination": "/admin-dashboard/$1" },
+    { "source": "/(.*)", "destination": "/client-market/$1" }
+  ],
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" },
+        { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/admin/sw.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" },
+        { "key": "Service-Worker-Allowed", "value": "/admin/" }
+      ]
+    }
+  ]
+}
