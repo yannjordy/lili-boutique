@@ -335,7 +335,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 .toast svg{width:18px;height:18px;flex-shrink:0;}
 .snap-tab svg{width:14px;height:14px;flex-shrink:0;}
 .ck-step-dot .num svg{width:14px;height:14px;}
-.welcome-splash{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);animation:welcomeIn .6s cubic-bezier(.34,1.56,.64,1);}
+.welcome-splash{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);}
 .welcome-splash.hide{animation:welcomeOut .5s ease forwards;pointer-events:none;}
 @keyframes welcomeIn{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
 @keyframes welcomeOut{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05)}}
@@ -361,9 +361,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
   <div class="welcome-name">Lili-Store</div>
   <div class="welcome-tag">Boutique digitale</div>
 </div>
-<script>
-(function(){var d=document.getElementById('welcomeSplash');if(!d)return;var t=setTimeout(function(){try{d.style.display='none'}catch(e){}},1200);window._splashFallback=t;})();
-</script>
+<!-- splash hidden by main script -->
 
 <header class="app-header" id="mainHeader">
   <div class="app-header-inner">
@@ -401,16 +399,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
   </div>
 
   <section class="discover-section">
-    <div class="discover-grid" id="productsGrid">
-<div class="tile-card" style="animation-delay:0ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:70%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:50%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:35%;border-radius:4px"></div></div></div>
-<div class="tile-card" style="animation-delay:60ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:65%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:45%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:40%;border-radius:4px"></div></div></div>
-<div class="tile-card" style="animation-delay:120ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:75%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:55%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:30%;border-radius:4px"></div></div></div>
-<div class="tile-card" style="animation-delay:180ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:60%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:50%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:45%;border-radius:4px"></div></div></div>
-<div class="tile-card" style="animation-delay:240ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:70%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:40%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:35%;border-radius:4px"></div></div></div>
-<div class="tile-card" style="animation-delay:300ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:65%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:50%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:40%;border-radius:4px"></div></div></div>
-<div class="tile-card" style="animation-delay:360ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:75%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:55%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:30%;border-radius:4px"></div></div></div>
-<div class="tile-card" style="animation-delay:420ms;pointer-events:none"><div class="tile-cover"><div class="tile-sk" style="position:relative;height:180px;border-radius:var(--radius-s) var(--radius-s) 0 0"></div></div><div class="tile-body"><div class="tile-sk" style="position:relative;height:14px;width:60%;margin-bottom:8px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:10px;width:45%;margin-bottom:10px;border-radius:4px"></div><div class="tile-sk" style="position:relative;height:16px;width:45%;border-radius:4px"></div></div></div>
-</div>
+    <div class="discover-grid" id="productsGrid"></div>
     <div class="snap-empty" id="emptyState" style="display:none">
       <div class="snap-empty-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
       <h3>Aucun produit trouvé</h3>
@@ -437,7 +426,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 
 <script src="js/pwa.js"></script>
 <script src="js/payment.js"></script>
- <script>
+<script>
 const SUPABASE_URL = 'https://xjckbqbqxcwzcrlmuvzf.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqY2ticWJxeGN3emNybG11dnpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1MTk1MzMsImV4cCI6MjA3NjA5NTUzM30.AMzAUwtjFt7Rvof5r2enMyYIYToc1wNWWEjvZqK_YXM';
 
@@ -455,10 +444,7 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 async function loadProducts(){
   try{
     const SHOP_ID='f9f81eea-9dbf-4c96-ad56-f7e2afcc35e7';
-    const [boutiques,data]=await Promise.all([
-      _g('parametres_boutique',{'user_id':'eq.'+SHOP_ID,'select':'config'}),
-      _g('produits',{'user_id':'eq.'+SHOP_ID,'statut':'eq.published','order':'created_at.desc'})
-    ]);
+    const boutiques=await _g('parametres_boutique',{'user_id':'eq.'+SHOP_ID,'select':'config'});
     const boutique=boutiques?.[0]||null;
     STATE.config=boutique?.config||null;
     if(boutique?.config?.general){
@@ -466,6 +452,7 @@ async function loadProducts(){
       if(g.nom)document.getElementById('shopName').textContent=g.nom;
       if(g.description)document.getElementById('shopDesc').textContent=g.description;
     }
+    const data=await _g('produits',{'user_id':'eq.'+SHOP_ID,'statut':'eq.published','order':'created_at.desc'});
     STATE.products=(data||[]).map(p=>{
       const images=Array.isArray(p.images)?p.images:(p.main_image?[p.main_image]:[]);
       return{
@@ -477,8 +464,7 @@ async function loadProducts(){
     STATE.filtered=[...STATE.products];
     document.getElementById('totalProducts').textContent=STATE.products.length;
     filterProducts();
-    const ob=document.getElementById('offlineBanner');
-    if(ob)ob.remove();
+    document.getElementById('offlineBanner')?.remove();
   }catch(e){
     console.error('Error:',e);
     try{
@@ -1109,9 +1095,9 @@ window.addEventListener('appinstalled',()=>{
 
 /* ───── WELCOME SPLASH ───── */
 setTimeout(()=>{
-  const splash=document.getElementById('welcomeSplash');
-  if(splash){splash.classList.add('hide');setTimeout(()=>splash.style.display='none',500);}
-},2000);
+  const s=document.getElementById('welcomeSplash');
+  if(s)s.style.display='none';
+},800);
 
 /* ───── LOAD ───── */
 loadProducts().then(()=>{
