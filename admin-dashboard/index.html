@@ -192,9 +192,9 @@ if('serviceWorker'in navigator&&location.protocol!=='file:'){navigator.serviceWo
   <div class="chart-wrap sr" id="chartWrap" style="display:none"><canvas id="revenueChart"></canvas></div>
 
   <div class="tabs sr">
-    <button class="tab-btn active" onclick="switchTab('products')">Produits</button>
-    <button class="tab-btn" onclick="switchTab('orders')">Commandes</button>
-    <button class="tab-btn" onclick="switchTab('settings')">Boutique</button>
+    <button class="tab-btn active" data-tab="products" onclick="switchTab('products')">Produits</button>
+    <button class="tab-btn" data-tab="orders" onclick="switchTab('orders')">Commandes</button>
+    <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Boutique</button>
   </div>
 
   <div id="tabProducts">
@@ -263,15 +263,15 @@ if('serviceWorker'in navigator&&location.protocol!=='file:'){navigator.serviceWo
 </main>
 
 <nav class="bottom-nav" id="bottomNav">
-  <button class="nav-item active" onclick="switchTab('products')">
+  <button class="nav-item active" data-tab="products" onclick="switchTab('products')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
     <span>Produits</span>
   </button>
-  <button class="nav-item" onclick="switchTab('orders')">
+  <button class="nav-item" data-tab="orders" onclick="switchTab('orders')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
     <span>Commandes</span>
   </button>
-  <button class="nav-item" onclick="switchTab('settings')">
+  <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     <span>Boutique</span>
   </button>
@@ -347,16 +347,17 @@ function showToast(msg,type='info'){
   t.className=`toast ${type}`;
   t.textContent=msg;
   c.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300);},2600);
+  const ms=type==='error'?4000:2600;
+  setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300);},ms);
 }
 
 /* ───── DATA ───── */
 async function loadData(){
   const uid=SHOP_ID;
   const pdata=await _g('produits',{'user_id':'eq.'+uid,'order':'created_at.desc'});
-  products=(pdata||[]).map(p=>({id:p.id,name:p.nom||'',price:p.prix||0,prix_barre:p.prix_barre||0,stock:p.stock||0,category:p.categorie||'',images:Array.isArray(p.images)?p.images:(p.main_image?[p.main_image]:[]),image:p.main_image||(Array.isArray(p.images)&&p.images[0])||'',desc:p.description||'',status:p.statut||'published'}));
-  const odata=await _g('commandes',{'order':'created_at.desc'});
-  orders=(odata||[]).filter(o=>!uid||o.user_id===uid);
+  products=(pdata||[]).map(p=>({id:p.id,name:p.nom||'',price:p.prix||0,prix_barre:p.prix_initial||0,stock:p.stock||0,category:p.categorie||'',images:p.main_image?[p.main_image]:[],image:p.main_image||'',desc:p.description||'',status:p.statut||'published'}));
+  const odata=await _g('commandes',{'user_id':'eq.'+uid,'order':'created_at.desc'});
+  orders=(odata||[]).filter(o=>o.user_id===uid);
   renderAll();
   updateChart();
   loadSettings();
@@ -466,7 +467,7 @@ function renderProdStepIndicator(){
 
 function renderProdStepContent(){
   const el=document.getElementById('prodModalBody');
-  const steps=[`<div class="ck-pane" id="prodPane">
+  const steps=[`<div class="ck-pane">
       <div class="form-label" style="margin-bottom:8px">Photos du produit (max 4)</div>
       <div class="ck-img-grid">
         ${[0,1,2,3].map(i=>'<div class="ck-img-slot" id="prodSlot'+i+'" onclick="document.getElementById(\'prodFile'+i+'\').click()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Image '+(i+1)+'</span><div class="img-preview" id="imgPreview'+i+'" style="display:none;position:absolute;inset:0;width:100%;height:100%;border:none;margin:0;border-radius:0;"></div><input type="file" id="prodFile'+i+'" accept="image/*" style="display:none" onchange="handleProdImage('+i+')"><input class="url-input" id="fImg'+i+'" placeholder="URL image '+(i+1)+'" onclick="event.stopPropagation()" oninput="previewProdUrl('+i+')"><button class="del" id="prodDel'+i+'" onclick="event.stopPropagation();clearProdImg('+i+')" style="display:none">✕</button></div>').join('')}
@@ -476,7 +477,7 @@ function renderProdStepContent(){
         <button class="form-submit" style="flex:1" onclick="goProdStep(1)">Suivant</button>
       </div>
     </div>`,
-    `<div class="ck-pane" id="prodPane">
+    `<div class="ck-pane">
       <div class="form-group"><label class="form-label">Nom du produit</label><input class="form-input" id="fName" placeholder="Ex: Robe Wax"></div>
       <div class="form-group"><label class="form-label">Catégorie</label>
         <select class="form-select" id="fCategory"><option value="mode">Mode</option><option value="beaute">Beauté</option><option value="alimentation">Alimentation</option><option value="accessoires">Accessoires</option><option value="artisanat">Artisanat</option></select>
@@ -489,7 +490,7 @@ function renderProdStepContent(){
         <button class="form-submit" style="flex:1" onclick="goProdStep(2)">Suivant</button>
       </div>
     </div>`,
-    `<div class="ck-pane" id="prodPane">
+    `<div class="ck-pane">
       <div class="form-group"><label class="form-label">Prix actuel (FCFA)</label><input class="form-input" id="fPrice" type="number" placeholder="8500"></div>
       <div class="form-group"><label class="form-label">Prix avant promo (FCFA) <span style="color:var(--text-3);font-weight:400;font-size:.75rem">optionnel</span></label><input class="form-input" id="fPriceBarre" type="number" placeholder="12000"></div>
       <div class="form-group"><label class="form-label">Stock</label><input class="form-input" id="fStock" type="number" placeholder="10"></div>
@@ -498,7 +499,7 @@ function renderProdStepContent(){
         <button class="form-submit" style="flex:1" onclick="goProdStep(3)">Suivant</button>
       </div>
     </div>`,
-    `<div class="ck-pane" id="prodPane">
+    `<div class="ck-pane">
       <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" id="fDesc" rows="4" placeholder="Description du produit..." style="resize:vertical;min-height:100px"></textarea></div>
       <div style="background:var(--surface);border-radius:var(--radius-s);padding:12px;margin-bottom:14px">
         <div style="font-size:.72rem;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Récapitulatif</div>
@@ -532,7 +533,7 @@ function validateProdStep(n){
 
 function goProdStep(n){
   if(n>currentProdStep&&!validateProdStep(currentProdStep))return;
-  const pane=document.getElementById('prodPane');
+  const pane=document.querySelector('#prodModalBody .ck-pane');
   if(pane)pane.classList.add('exit');
   setTimeout(()=>{
     currentProdStep=n;
@@ -632,7 +633,7 @@ async function saveProduct(){
   const f2=document.getElementById('fImg2').value.trim();
   const f3=document.getElementById('fImg3').value.trim();
   const images=[f0,f1,f2,f3].filter(Boolean);
-  const payload={nom:name,prix:price,prix_barre:priceBarre>0?priceBarre:null,stock,categorie:category,statut:status,main_image:images[0]||'',images:images.length?images:null,description:desc,user_id:SHOP_ID};
+  const payload={nom:name,prix:price,prix_initial:priceBarre>0?priceBarre:null,stock,categorie:category,statut:status,main_image:images[0]||'',description:desc,user_id:SHOP_ID};
   try{
     if(editId!==null){
       await _u('produits',{'id':'eq.'+editId},payload);
@@ -743,41 +744,43 @@ function closeOrderModal(){document.getElementById('orderDetailModal').classList
 /* ───── SETTINGS ───── */
 async function loadSettings(){
   if(!SHOP_ID)return;
-  const data=await _g('parametres_boutique',{'user_id':'eq.'+SHOP_ID,'select':'config'});
-  const cfg=data?.[0];
-  if(cfg?.config){
-    const c=cfg.config;
-    document.getElementById('sName').value=c.general?.nom||'';
-    document.getElementById('sDesc').value=c.general?.description||'';
-    document.getElementById('sPhone').value=c.general?.telephone||'';
-    document.getElementById('sEmail').value=c.general?.email||'';
-    document.getElementById('sAddr').value=c.general?.adresse||'';
-    const pay=c.paiement;
-    if(pay){
-      const mtn=pay.mobile?.mtn;
-      const orange=pay.mobile?.orange;
-      const mtnEl=document.getElementById('sPayMtn');
-      if(mtnEl)mtnEl.checked=!!mtn?.actif;
-      const payMtnDetail=document.getElementById('payMtnDetail');
-      if(payMtnDetail)payMtnDetail.style.display=mtn?.actif?'':'none';
-      const orEl=document.getElementById('sPayOrange');
-      if(orEl)orEl.checked=!!orange?.actif;
-      const payOrDetail=document.getElementById('payOrangeDetail');
-      if(payOrDetail)payOrDetail.style.display=orange?.actif?'':'none';
-      const cardEl=document.getElementById('sPayCard');
-      if(cardEl)cardEl.checked=!!pay.carte?.actif;
-      const cashEl=document.getElementById('sPayCash');
-      if(cashEl)cashEl.checked=!!pay.cash?.actif;
-      const mtnNum=document.getElementById('sMtnNum');
-      if(mtnNum)mtnNum.value=mtn?.numero||'';
-      const mtnName=document.getElementById('sMtnName');
-      if(mtnName)mtnName.value=mtn?.nomCompte||'';
-      const orNum=document.getElementById('sOrangeNum');
-      if(orNum)orNum.value=orange?.numero||'';
-      const orName=document.getElementById('sOrangeName');
-      if(orName)orName.value=orange?.nomCompte||'';
+  try{
+    const data=await _g('parametres_boutique',{'user_id':'eq.'+SHOP_ID,'select':'config'});
+    const cfg=data?.[0];
+    if(cfg?.config){
+      const c=cfg.config;
+      document.getElementById('sName').value=c.general?.nom||'';
+      document.getElementById('sDesc').value=c.general?.description||'';
+      document.getElementById('sPhone').value=c.general?.telephone||'';
+      document.getElementById('sEmail').value=c.general?.email||'';
+      document.getElementById('sAddr').value=c.general?.adresse||'';
+      const pay=c.paiement;
+      if(pay){
+        const mtn=pay.mobile?.mtn;
+        const orange=pay.mobile?.orange;
+        const mtnEl=document.getElementById('sPayMtn');
+        if(mtnEl)mtnEl.checked=!!mtn?.actif;
+        const payMtnDetail=document.getElementById('payMtnDetail');
+        if(payMtnDetail)payMtnDetail.style.display=mtn?.actif?'':'none';
+        const orEl=document.getElementById('sPayOrange');
+        if(orEl)orEl.checked=!!orange?.actif;
+        const payOrDetail=document.getElementById('payOrangeDetail');
+        if(payOrDetail)payOrDetail.style.display=orange?.actif?'':'none';
+        const cardEl=document.getElementById('sPayCard');
+        if(cardEl)cardEl.checked=!!pay.carte?.actif;
+        const cashEl=document.getElementById('sPayCash');
+        if(cashEl)cashEl.checked=!!pay.cash?.actif;
+        const mtnNum=document.getElementById('sMtnNum');
+        if(mtnNum)mtnNum.value=mtn?.numero||'';
+        const mtnName=document.getElementById('sMtnName');
+        if(mtnName)mtnName.value=mtn?.nomCompte||'';
+        const orNum=document.getElementById('sOrangeNum');
+        if(orNum)orNum.value=orange?.numero||'';
+        const orName=document.getElementById('sOrangeName');
+        if(orName)orName.value=orange?.nomCompte||'';
+      }
     }
-  }
+  }catch(e){showToast('Erreur chargement paramètres','error');}
 }
 
 async function saveSettings(override){
@@ -829,11 +832,7 @@ function shareShop(){
 
 /* ───── NAV ───── */
 function switchTab(tab){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase().includes(tab==='products'?'produits':tab)));
-  document.querySelectorAll('.nav-item').forEach((b,i)=>{
-    const tabs=['products','orders','settings'];
-    b.classList.toggle('active',tabs[i]===tab);
-  });
+  document.querySelectorAll('.tab-btn, .nav-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   document.getElementById('tabProducts').style.display=tab==='products'?'':'none';
   document.getElementById('tabOrders').style.display=tab==='orders'?'':'none';
   document.getElementById('tabSettings').style.display=tab==='settings'?'':'none';

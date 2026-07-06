@@ -1,17 +1,17 @@
 {
-  "name": "MarketPro Admin",
-  "short_name": "AdminPro",
+  "name": "Lili-Store Admin",
+  "short_name": "Admin",
   "description": "Tableau de bord administrateur — gérez produits, commandes et statistiques",
-  "start_url": "/",
+  "start_url": "/admin/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0C0E14",
-  "theme_color": "#FF6B00",
-  "scope": "/",
+  "theme_color": "#14B8A6",
+  "scope": "/admin/",
   "lang": "fr-FR",
   "categories": ["business", "productivity"],
   "icons": [
-    { "src": "/assets/logo-icon.svg", "sizes": "64x64", "type": "image/svg+xml" },
-    { "src": "/assets/logo.svg", "sizes": "192x192", "type": "image/svg+xml" }
+    { "src": "assets/logo-icon.svg", "sizes": "64x64", "type": "image/svg+xml" },
+    { "src": "assets/logo.svg", "sizes": "192x192", "type": "image/svg+xml" }
   ]
 }

@@ -1,5 +1,5 @@
-const CACHE = 'adminpro-v1';
-const URLS = ['/', '/manifest.json', '/assets/logo.svg', '/assets/logo-icon.svg'];
+const CACHE = 'liliadmin-v1';
+const URLS = ['/admin/', '/admin/index.html', 'manifest.json', 'assets/logo.svg', 'assets/logo-icon.svg', 'css/style.css'];
 
 self.addEventListener('install', e => {
   self.skipWaiting();

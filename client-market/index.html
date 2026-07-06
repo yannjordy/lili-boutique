@@ -68,19 +68,6 @@ img{display:block;max-width:100%;}
 .hero-title .accent{color:var(--primary);}
 .hero-sub{font-size:.88rem;color:var(--text-2);line-height:1.6;margin-bottom:18px;max-width:320px;position:relative;z-index:1;}
 
-.stories-bar-wrap{padding:16px 0 0;}
-.stories-label{display:flex;align-items:center;gap:8px;padding:0 16px 10px;}
-.stories-label-txt{font-family:var(--font-display);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);}
-.stories-bar{display:flex;gap:14px;padding:4px 16px 18px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
-.stories-bar::-webkit-scrollbar{display:none;}
-.story-item{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;cursor:pointer;scroll-snap-align:start;animation:storyIn .5s var(--ease-bounce) backwards;}
-@keyframes storyIn{from{opacity:0;transform:scale(.7) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.story-ring-outer{width:68px;height:68px;border-radius:50%;padding:2.5px;position:relative;background:conic-gradient(var(--primary) 0%,var(--gold) 50%,var(--primary) 100%);transition:transform var(--t-bounce);}
-.story-item:hover .story-ring-outer{transform:scale(1.08);}
-.story-ring-inner{width:100%;height:100%;border-radius:50%;border:2.5px solid var(--bg);overflow:hidden;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
-.story-ring-inner img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-.story-name{font-family:var(--font-body);font-size:.66rem;font-weight:600;color:var(--text-2);text-align:center;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-
 .snap-tabs{display:flex;gap:0;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.07);background:var(--bg);position:sticky;top:var(--hdr-h);z-index:90;}
 .snap-tab{flex:1;padding:12px 8px;border:none;background:transparent;color:var(--text-3);font-family:var(--font-display);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;border-bottom:2px solid transparent;transition:all .22s ease;display:flex;align-items:center;justify-content:center;gap:6px;}
 .snap-tab:hover{color:var(--text-2);}
@@ -319,6 +306,9 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 
 .skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--surface-2) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.4s ease-in-out infinite;border-radius:var(--radius-s);}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sk-card{background:var(--bg-card);border-radius:var(--radius-m);overflow:hidden;padding:12px;display:flex;flex-direction:column;gap:10px;}
+.sk-img{height:140px;width:100%;border-radius:var(--radius-s);}
+.sk-line{height:14px;border-radius:var(--radius-full);}
 .tile-btn-cart svg,.cmd-btn-ok svg{width:14px;height:14px;flex-shrink:0;}
 .tile-btn-like svg,.tile-btn-share svg{width:16px;height:16px;}
 .tile-btn-share{width:36px;height:36px;border-radius:var(--radius-s);border:1.5px solid var(--border);background:var(--surface);color:var(--text-2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--t-bounce);flex-shrink:0;}
@@ -396,12 +386,21 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
   </section>
 
   <div class="snap-tabs">
-    <button class="snap-tab active" onclick="switchTab('all')"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Tous</button>
-    <button class="snap-tab" onclick="switchTab('popular')"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Tendances</button>
+    <button class="snap-tab active" data-tab="all" onclick="switchTab('all')"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Tous</button>
+    <button class="snap-tab" data-tab="popular" onclick="switchTab('popular')"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Tendances</button>
   </div>
 
   <section class="discover-section">
-    <div class="discover-grid" id="productsGrid"></div>
+    <div class="discover-grid" id="productsGrid">
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+      <div class="sk-card"><div class="sk-img skeleton"></div><div class="sk-line skeleton" style="width:70%"></div><div class="sk-line skeleton" style="width:40%"></div><div class="sk-line skeleton"></div></div>
+    </div>
     <div class="snap-empty" id="emptyState" style="display:none">
       <div class="snap-empty-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
       <h3>Aucun produit trouvé</h3>
@@ -456,13 +455,13 @@ async function loadProducts(){
     }
     const data=await _g('produits',{'user_id':'eq.'+SHOP_ID,'statut':'eq.published','order':'created_at.desc'});
     STATE.products=(data||[]).map(p=>{
-      const images=Array.isArray(p.images)?p.images:(p.main_image?[p.main_image]:[]);
+      const images=p.main_image?[p.main_image]:[];
       return{
       id:p.id,name:p.nom||'Produit',shop:boutique?.config?.general?.nom||'Lili-Store',shopId:p.user_id||'',
-      price:p.prix||0,prix_barre:p.prix_barre||0,stars:4,image:p.main_image||(images[0]||''),images,
+      price:p.prix||0,prix_barre:p.prix_initial||0,stars:4,image:p.main_image||'',images,
       desc:p.description||'',stock:p.stock||0,category:p.categorie||'',hot:false
     }});
-    try{localStorage.setItem('_prods',JSON.stringify(STATE.products));localStorage.setItem('_conf',JSON.stringify(STATE.config));}catch(e){}
+    try{localStorage.setItem('_prods',JSON.stringify(STATE.products));localStorage.setItem('_conf',JSON.stringify(STATE.config));localStorage.setItem('_cache_ts',Date.now());}catch(e){}
     STATE.filtered=[...STATE.products];
     document.getElementById('totalProducts').textContent=STATE.products.length;
     filterProducts();
@@ -470,8 +469,8 @@ async function loadProducts(){
   }catch(e){
     console.error('Error:',e);
     try{
-      const cp=localStorage.getItem('_prods'),cc=localStorage.getItem('_conf');
-      if(cp){STATE.products=JSON.parse(cp);STATE.config=JSON.parse(cc);
+      const cp=localStorage.getItem('_prods'),cc=localStorage.getItem('_conf'),cacheTs=localStorage.getItem('_cache_ts');
+      if(cp&&cacheTs&&Date.now()-Number(cacheTs)<3600000){STATE.products=JSON.parse(cp);STATE.config=JSON.parse(cc);
         if(STATE.config?.general?.nom)document.getElementById('shopName').textContent=STATE.config.general.nom;
         if(STATE.config?.general?.description)document.getElementById('shopDesc').textContent=STATE.config.general.description;
         STATE.filtered=[...STATE.products];
@@ -506,7 +505,7 @@ function onSearch(val){
 
 function switchTab(tab){
   STATE.tab=tab;
-  document.querySelectorAll('.snap-tab').forEach(t=>t.classList.toggle('active',t.textContent.trim().toLowerCase().includes(tab==='all'?'tous':tab)));
+  document.querySelectorAll('.snap-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   filterProducts();
 }
 
@@ -551,11 +550,6 @@ function buildCard(p,i){
       </div>
     </div>
   </div>`;
-}
-
-function toggleLike(id,btn){
-  if(STATE.liked.has(id)){STATE.liked.delete(id);btn.classList.remove('liked');btn.innerHTML=ic('heart-o');}
-  else{STATE.liked.add(id);btn.classList.add('liked');btn.innerHTML=ic('heart');}
 }
 
 function openProduct(id){
@@ -651,7 +645,8 @@ function showToast(msg,type='info'){
   t.className=`toast ${type}`;
   t.innerHTML=`<span>${icons[type]||ic('info')}</span><span>${esc(msg)}</span>`;
   c.appendChild(t);
-  setTimeout(()=>{t.classList.add('fade-out');setTimeout(()=>t.remove(),350);},3200);
+  const ms=type==='error'?4500:3200;
+  setTimeout(()=>{t.classList.add('fade-out');setTimeout(()=>t.remove(),350);},ms);
 }
 
 function stopSlides(){Object.values(STATE.slides).forEach(c=>clearInterval(c));STATE.slides={};}
@@ -819,7 +814,7 @@ async function soumettreCommande(){
     frais_livraison:liv.frais,
     methode_paiement:m?.label||orderState.modePaiement,
     statut:'en_attente',
-    numero:genererNumeroCommande(Date.now()%10000),
+    numero:genererNumeroCommande(),
   };
   try{
     await _p('commandes',commande);

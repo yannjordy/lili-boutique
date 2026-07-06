@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary:#FF6B00;--primary-dark:#D45B00;--primary-glow:rgba(255,107,0,.4);
-  --primary-soft:rgba(255,107,0,.12);--bg:#0C0E14;--bg-2:#13161F;
+  --primary:#14B8A6;--primary-dark:#0D9488;--primary-glow:rgba(20,184,166,.4);
+  --primary-soft:rgba(20,184,166,.12);--bg:#0C0E14;--bg-2:#13161F;
   --bg-card:#181C28;--surface:#1E2235;--surface-2:#252A3E;
-  --border:rgba(255,255,255,.07);--border-accent:rgba(255,107,0,.35);
+  --border:rgba(255,255,255,.07);--border-accent:rgba(20,184,166,.35);
   --text-1:#F0F4FF;--text-2:#8896B3;--text-3:#4A556B;
   --gold:#F5A623;--success:#00D68F;--error:#FF4D6D;
   --radius-s:10px;--radius-m:16px;--radius-l:22px;--radius-xl:30px;--radius-full:9999px;

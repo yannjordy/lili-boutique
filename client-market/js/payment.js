@@ -1,9 +1,12 @@
 function formatPrice(p, d = 'FCFA') {
   return `${Number(p).toLocaleString('fr-FR')} ${d}`;
 }
-function genererNumeroCommande(c = 0) {
-  const d = new Date();
-  return `CMD-${String(d.getFullYear()).slice(-2)}${String(d.getMonth()+1).padStart(2,'0')}-${String(c+1).padStart(4,'0')}`;
+function genererNumeroCommande(){
+  const d=new Date();
+  let c=Number(localStorage.getItem('_cmd_counter'))||0;
+  c++;
+  localStorage.setItem('_cmd_counter',c);
+  return `CMD-${String(d.getFullYear()).slice(-2)}${String(d.getMonth()+1).padStart(2,'0')}-${String(c).padStart(4,'0')}`;
 }
 function genererLienUSSD(op, num, montant) {
   let n = String(num).replace(/[\s\-().]/g,'');
