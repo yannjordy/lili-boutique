@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-
 :root {
   --primary:#14B8A6;--primary-dark:#0D9488;--primary-glow:rgba(20,184,166,.4);
   --primary-soft:rgba(20,184,166,.12);--bg:#0C0E14;--bg-2:#13161F;
@@ -9,7 +7,7 @@
   --gold:#F5A623;--success:#00D68F;--error:#FF4D6D;
   --radius-s:10px;--radius-m:16px;--radius-l:22px;--radius-xl:30px;--radius-full:9999px;
   --hdr-h:112px;
-  --font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+  --font-display:system-ui,-apple-system,sans-serif;--font-body:system-ui,-apple-system,sans-serif;
   --ease-bounce:cubic-bezier(.34,1.56,.64,1);--ease-out:cubic-bezier(.4,0,.2,1);
   --t-fast:.18s var(--ease-out);--t-norm:.28s var(--ease-out);--t-bounce:.38s var(--ease-bounce);
   --shadow-card:0 8px 32px rgba(0,0,0,.5);--shadow-glow:0 0 30px var(--primary-glow);
