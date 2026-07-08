@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#14B8A6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Lili-Store Digital · Admin</title>
-<link rel="icon" type="image/jpeg" href="../client-market/lili.jpg">
+<link rel="icon" type="image/jpeg" href="lili.jpg">
+<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
@@ -175,7 +176,7 @@ if('serviceWorker'in navigator&&location.protocol!=='file:'){navigator.serviceWo
 <header class="dash-header" id="dashHeader">
   <div class="dash-header-inner">
     <div class="dash-logo">
-      <img src="../client-market/lili.jpg" alt="" style="width:28px;height:28px;border-radius:8px;object-fit:cover">
+      <img src="lili.jpg" alt="" style="width:28px;height:28px;border-radius:8px;object-fit:cover">
       <span class="dash-logo-text">Lili-Store <span>Digital</span></span>
     </div>
     <div class="dash-header-actions"></div>
@@ -225,12 +226,12 @@ if('serviceWorker'in navigator&&location.protocol!=='file:'){navigator.serviceWo
       <div style="margin:18px 0 10px;border-top:1px solid var(--border);padding-top:14px">
         <div class="section-title" style="font-size:.85rem;margin-bottom:12px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Moyens de paiement</div>
         <div class="pay-toggle" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
-          <img src="../client-market/mtn-logo.png" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:var(--surface);padding:3px;border:1px solid var(--border)" alt="">
+          <img src="mtn-logo.png" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:var(--surface);padding:3px;border:1px solid var(--border)" alt="">
           <span style="flex:1;font-size:.85rem;font-weight:600">MTN Mobile Money</span>
           <label class="ck-switch"><input type="checkbox" id="sPayMtn" onchange="document.getElementById('payMtnDetail').style.display=this.checked?'':'none'"><span class="ck-slider"></span></label>
         </div>
         <div class="pay-toggle" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
-          <img src="../client-market/orange-money.png" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:var(--surface);padding:3px;border:1px solid var(--border)" alt="">
+          <img src="orange-money.png" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:var(--surface);padding:3px;border:1px solid var(--border)" alt="">
           <span style="flex:1;font-size:.85rem;font-weight:600">Orange Money</span>
           <label class="ck-switch"><input type="checkbox" id="sPayOrange" onchange="document.getElementById('payOrangeDetail').style.display=this.checked?'':'none'"><span class="ck-slider"></span></label>
         </div>

@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/admin/(.*)", "destination": "/admin-dashboard/$1" },
+    { "source": "/admin/(.*)", "destination": "/client-market/admin/$1" },
     { "source": "/(.*)", "destination": "/client-market/$1" }
   ],
   "cleanUrls": true,
