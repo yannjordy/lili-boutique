@@ -85,10 +85,10 @@ img{display:block;max-width:100%;}
 @keyframes tileIn{from{opacity:0;transform:translateY(24px) scale(.92)}to{opacity:1;transform:translateY(0) scale(1)}}
 .tile-card:hover{box-shadow:var(--shadow);transform:translateY(-4px) scale(1.01);border-color:var(--border-accent);}
 .tile-card:active{transform:scale(.97);}
-.tile-cover{height:90px;position:relative;overflow:hidden;background:var(--surface);flex-shrink:0;}
+.tile-cover{height:160px;position:relative;overflow:hidden;background:var(--surface);flex-shrink:0;}
 .tile-cover::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3);opacity:0;transition:opacity .3s ease;z-index:2;pointer-events:none;}
 .tile-card:hover .tile-cover::after{opacity:1;}
-.tile-card:nth-child(5n+1) .tile-cover{height:140px;}
+.tile-card:nth-child(5n+1) .tile-cover{height:200px;}
 .tile-slideshow{position:absolute;inset:0;overflow:hidden;}
 .tile-slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .55s ease;}
 .tile-slide-img.loaded{opacity:1;}
@@ -109,7 +109,9 @@ img{display:block;max-width:100%;}
 .tile-meta{font-size:.67rem;color:var(--text-3);font-weight:500;display:flex;align-items:center;gap:4px;}
 .tile-meta svg{width:12px;height:12px;flex-shrink:0;}
 .tile-price{font-family:var(--font-display);font-size:1.05rem;font-weight:800;color:var(--primary);letter-spacing:-.02em;}
-.tile-stars{color:var(--gold);font-size:.7rem;letter-spacing:1px;}
+.tile-stars{color:var(--gold);font-size:.7rem;letter-spacing:1px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.tile-likes{color:var(--text-3);font-size:.65rem;font-weight:600;display:inline-flex;align-items:center;gap:3px;letter-spacing:0;}
+.tile-likes svg{width:11px;height:11px;}
 .tile-desc{font-size:.71rem;color:var(--text-2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .tile-actions{display:flex;gap:6px;margin-top:auto;}
 .tile-btn-cart{flex:1;padding:9px 10px;border-radius:var(--radius-s);border:none;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;font-family:var(--font-body);font-size:.77rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;box-shadow:0 4px 12px rgba(20,184,166,.3);transition:all var(--t-bounce);}
@@ -138,19 +140,73 @@ img{display:block;max-width:100%;}
 
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:3000;opacity:0;visibility:hidden;transition:all var(--t-norm);display:flex;align-items:flex-end;justify-content:center;}
 .modal-overlay.active{opacity:1;visibility:visible;}
-.modal-sheet{background:var(--bg-card);border-radius:var(--radius-xl) var(--radius-xl) 0 0;border:1px solid var(--border);border-bottom:none;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;transform:translateY(40px);transition:transform var(--t-bounce);position:relative;padding-bottom:env(safe-area-inset-bottom,20px);box-shadow:0 -4px 40px rgba(0,0,0,.5);}
+.modal-sheet{background:var(--bg-card);border-radius:var(--radius-xl) var(--radius-xl) 0 0;border:1px solid var(--border);border-bottom:none;width:100%;max-width:500px;max-height:45vh;overflow:hidden;transform:translateY(40px);transition:transform var(--t-bounce),max-height .45s cubic-bezier(.22,.68,0,1);position:relative;padding-bottom:env(safe-area-inset-bottom,20px);box-shadow:0 -4px 40px rgba(0,0,0,.5);}
 body.light .modal-sheet{box-shadow:0 -4px 40px rgba(0,0,0,.15);}
 .modal-overlay.active .modal-sheet{transform:translateY(0);}
-.modal-drag-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:12px auto 4px;}
+.modal-sheet.expanded{max-height:100dvh;overflow-y:auto;}
+.modal-sheet::-webkit-scrollbar{width:3px;}
+.modal-sheet::-webkit-scrollbar-thumb{background:var(--surface-2);border-radius:99px;}
+.modal-drag-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:12px auto 4px;cursor:grab;}
 .modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border:1px solid var(--border);background:var(--surface);border-radius:50%;color:var(--text-2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--t-fast);z-index:1;}
 .modal-close:hover{background:var(--error);color:white;border-color:var(--error);}
-.modal-product-img{width:100%;height:200px;object-fit:cover;cursor:zoom-in;transition:transform .3s ease,opacity .55s ease;opacity:0;}
-.modal-product-img.loaded{opacity:1;}
-.modal-product-img:hover{transform:scale(1.02);}
-.modal-body{padding:20px;}
-.modal-name{font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:var(--text-1);margin-bottom:4px;}
-.modal-price{font-size:1.3rem;font-weight:900;color:var(--primary);margin-bottom:12px;}
-.modal-desc{font-size:.84rem;color:var(--text-2);line-height:1.6;margin-bottom:16px;}
+.modal-close svg{width:16px;height:16px;}
+.modal-img-wrap{position:relative;width:100%;aspect-ratio:3/4;max-height:45vh;overflow:hidden;background:var(--surface);}
+.modal-img-wrap .tile-sk{position:absolute;inset:0;z-index:0;}
+.modal-gallery{position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.modal-gallery img{scroll-snap-align:start;flex-shrink:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .55s ease;}
+.modal-gallery img.loaded{opacity:1;}
+.modal-img-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3;}
+.modal-img-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .25s;}
+.modal-img-dot.active{background:white;width:18px;border-radius:3px;}
+.modal-img-gradient{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.4) 0%,transparent 40%);pointer-events:none;z-index:2;}
+.modal-body{padding:16px 20px 0;}
+.modal-body-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px;}
+.modal-name{font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:var(--text-1);letter-spacing:-.02em;line-height:1.2;}
+.modal-meta{display:flex;align-items:center;gap:4px;font-size:.75rem;color:var(--text-3);margin-bottom:8px;}
+.modal-meta svg{width:14px;height:14px;}
+.modal-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;}
+.modal-price{font-size:1.3rem;font-weight:900;color:var(--primary);}
+.modal-price-barre{font-size:.9rem;color:var(--text-3);text-decoration:line-through;}
+.modal-stars{margin-bottom:14px;color:var(--gold);font-size:.75rem;letter-spacing:1px;}
+.modal-section-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin:18px 0 10px;display:flex;align-items:center;gap:6px;}
+.modal-section-title svg{width:14px;height:14px;flex-shrink:0;}
+.modal-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.modal-desc{font-size:.85rem;color:var(--text-2);line-height:1.7;margin-bottom:4px;}
+.modal-desc-wrap{padding-bottom:8px;}
+.modal-cta{display:flex;gap:8px;padding:14px 20px 6px;z-index:5;}
+.modal-cta-btn{flex:1;padding:13px;border:none;border-radius:var(--radius-s);background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;font-family:var(--font-body);font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 12px rgba(20,184,166,.3);transition:all var(--t-bounce);}
+.modal-cta-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(20,184,166,.4);}
+.modal-cta-btn:active{transform:scale(.97);}
+.modal-cta-btn svg{width:16px;height:16px;flex-shrink:0;}
+.modal-cta-share{width:44px;height:44px;border-radius:var(--radius-s);border:1.5px solid var(--border);background:var(--surface);color:var(--text-2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--t-bounce);flex-shrink:0;}
+.modal-cta-share:hover{border-color:var(--primary);color:var(--primary);}
+.modal-cta-share svg{width:18px;height:18px;}
+.modal-eng-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.modal-like-btn,.modal-comment-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text-2);cursor:pointer;font-family:var(--font-body);font-size:.75rem;font-weight:700;transition:all var(--t-bounce);}
+.modal-like-btn svg,.modal-comment-btn svg{width:16px;height:16px;flex-shrink:0;}
+.modal-like-btn:hover,.modal-comment-btn:hover{border-color:var(--primary);color:var(--primary);}
+.modal-like-btn.liked{border-color:#e74c3c;color:#e74c3c;background:rgba(231,76,60,.08);}
+.modal-like-btn.liked svg{fill:#e74c3c;}
+.modal-like-count{font-size:.7rem;min-width:18px;}
+.modal-comments{padding:0 20px 16px;}
+.modal-comment-form{display:flex;gap:8px;align-items:flex-end;margin-top:8px;}
+.modal-comment-input{flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-s);background:var(--surface);color:var(--text-1);font-family:var(--font-body);font-size:.8rem;resize:none;outline:none;transition:border var(--t-fast);}
+.modal-comment-input:focus{border-color:var(--primary);}
+.modal-comment-submit{padding:10px 16px;border:none;border-radius:var(--radius-s);background:var(--primary);color:white;font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all var(--t-bounce);}
+.modal-comment-submit:hover{opacity:.85;}
+.modal-comment-list{margin-top:10px;display:flex;flex-direction:column;gap:8px;}
+.modal-comment-item{padding:10px 12px;background:var(--surface);border-radius:var(--radius-s);border:1px solid var(--border);}
+.modal-comment-item .name{font-size:.7rem;font-weight:700;color:var(--primary);margin-bottom:2px;}
+.modal-comment-item .text{font-size:.8rem;color:var(--text-2);line-height:1.4;}
+.modal-comment-item .date{font-size:.62rem;color:var(--text-3);margin-top:4px;}
+.modal-related{padding:0 20px 40px;}
+.modal-related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:4px;}
+.modal-related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-m);overflow:hidden;cursor:pointer;transition:all var(--t-bounce);}
+.modal-related-card:hover{border-color:var(--border-accent);transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.modal-related-img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--surface);}
+.modal-related-body{padding:8px 10px 10px;}
+.modal-related-name{font-size:.8rem;font-weight:700;color:var(--text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.modal-related-price{font-size:.85rem;font-weight:800;color:var(--primary);margin-top:2px;}
 
 /* ───── ORDER STEPPER ───── */
 .ck-step-indicator{display:flex;align-items:center;justify-content:center;gap:0;padding:16px 20px 12px;position:sticky;top:0;z-index:11;background:var(--bg-card);}
@@ -299,7 +355,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 .bc-btn-close:hover{background:var(--surface);color:var(--text-2);}
 .bc-status{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(20,184,166,.15);color:var(--primary);border-radius:20px;font-size:.78rem;font-weight:700;}
 
-@media(max-width:480px){.hero-title{font-size:1.4rem;}.tile-card:nth-child(5n+1) .tile-cover{height:110px;}}
+@media(max-width:480px){.hero-title{font-size:1.4rem;}.tile-card:nth-child(5n+1) .tile-cover{height:170px;}}
 
 .sr{opacity:0;transform:translateY(24px);transition:opacity .55s var(--ease-out),transform .55s var(--ease-out);}
 .sr.in{opacity:1;transform:none;}
@@ -307,7 +363,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 .skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--surface-2) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.4s ease-in-out infinite;border-radius:var(--radius-s);}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .sk-card{background:var(--bg-card);border-radius:var(--radius-m);overflow:hidden;padding:12px;display:flex;flex-direction:column;gap:10px;}
-.sk-img{height:140px;width:100%;border-radius:var(--radius-s);}
+.sk-img{height:160px;width:100%;border-radius:var(--radius-s);}
 .sk-line{height:14px;border-radius:var(--radius-full);}
 .tile-btn-cart svg,.cmd-btn-ok svg{width:14px;height:14px;flex-shrink:0;}
 .tile-btn-like svg,.tile-btn-share svg{width:16px;height:16px;}
@@ -342,6 +398,8 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 .install-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-full);border:1.5px solid var(--border);background:var(--surface);color:var(--text-1);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all var(--t-fast);}
 .install-btn:hover{border-color:var(--primary);color:var(--primary);}
 .install-btn svg{width:16px;height:16px;}
+.hdr-btn#userBtn{position:relative;}
+.hdr-btn#userBtn.has-profile::after{content:'';position:absolute;top:0;right:0;width:6px;height:6px;background:var(--success);border-radius:50%;}
 </style>
 </head>
 <body>
@@ -366,6 +424,7 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
     </div>
     <div class="hdr-right">
       <button class="install-btn" id="installBtn" style="display:none" onclick="installApp()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Installer</button>
+      <button class="hdr-btn" id="userBtn" onclick="openUserProfile()" title="Mon profil"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
     </div>
   </div>
   <div class="hdr-search">
@@ -424,6 +483,23 @@ body.light .bc-modal{box-shadow:0 24px 64px rgba(0,0,0,.18);}
 
 <div id="orderModal"></div>
 <div id="receiptModal"></div>
+<div class="modal-overlay" id="userProfileModal" onclick="if(event.target===this)fermerUserProfile()">
+  <div class="modal-sheet" style="padding:0 0 30px">
+    <div class="modal-drag-handle"></div>
+    <button class="modal-close" onclick="fermerUserProfile()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <div class="modal-body">
+      <div class="modal-name" style="margin-bottom:4px">Mon profil</div>
+      <div class="modal-meta" style="margin-bottom:20px">Ces informations seront utilisées pour vos commandes</div>
+      <div class="cmd-field"><label class="cmd-label">Nom complet *</label><input type="text" class="cmd-input" id="profNom" placeholder="Ex: Jean Dupont"></div>
+      <div class="cmd-field"><label class="cmd-label">Téléphone *</label><input type="tel" class="cmd-input" id="profTel" placeholder="+237 6XX XX XX XX"></div>
+      <div class="cmd-field"><label class="cmd-label">Adresse *</label><input type="text" class="cmd-input" id="profAddr" placeholder="Quartier, rue..."></div>
+    </div>
+    <div class="modal-cta" style="flex-direction:column">
+      <button class="modal-cta-btn" onclick="sauvegarderProfil()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Enregistrer</button>
+      <button class="modal-comment-btn" onclick="deconnecterProfil()" style="justify-content:center;width:100%;margin-top:4px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg> Effacer mes informations</button>
+    </div>
+  </div>
+</div>
 
 <script src="js/pwa.js"></script>
 <script src="js/payment.js"></script>
@@ -438,9 +514,34 @@ async function _p(t,b){const r=await fetch(SUPABASE_URL+'/rest/v1/'+t,{method:'P
 (function(){const h=new Date().getHours();document.body.classList.toggle('light',h>=6&&h<18);})();
 
 const STATE = {products:[],filtered:[],visibleCount:8,tab:'all',search:'',liked:new Set(),slides:{},config:null};
+try{const l=JSON.parse(localStorage.getItem('_liked'));if(l)l.forEach(i=>STATE.liked.add(i));}catch(e){}
+(function(){const b=document.getElementById('userBtn');if(b&&getUserProfile())b.classList.add('has-profile');})();
 
 function formatNum(n){if(!n)return'0';if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'k';return String(n)}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function renderStars(rating,count){
+  const f='#F5A623',e='transparent';
+  const full=Math.floor(rating),half=rating%1>=0.5?1:0,empty=5-full-half;
+  const svg= c=>`<svg viewBox="0 0 24 24" width="12" height="12" fill="${c}" stroke="${c}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+  const halfSvg=`<svg viewBox="0 0 24 24" width="12" height="12" stroke="${f}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="hg${Date.now()}"><stop offset="50%" stop-color="${f}"/><stop offset="50%" stop-color="transparent"/></linearGradient></defs><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="url(#hg${Date.now()})"/></svg>`;
+  return svg(f).repeat(full)+halfSvg.repeat(half)+svg(e).repeat(empty)+(count?`<span style="font-size:.65rem;color:var(--text-3);margin-left:4px;font-weight:600">${formatNum(count)}</span>`:'');
+}
+
+const DEMO_PRODUCTS=[
+  {id:'d1',name:'Sac à main en cuir',shop:'Lili-Store',shopId:'',price:45000,prix_barre:65000,stars:4.8,reviews:342,stock:15,category:'Accessoires',hot:true,likes:12400,image:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1547949003-9792a18a2601?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=500&fit=crop'],desc:'Sac à main en cuir véritable avec finitions dorées. Compartiment principal zippé, poche intérieure et bandoulière ajustable. Idéal pour le quotidien ou les soirées.'},
+  {id:'d2',name:'Montre connectée Sport',shop:'Lili-Store',shopId:'',price:85000,prix_barre:0,stars:4.6,reviews:521,stock:42,category:'Électronique',hot:true,likes:28500,image:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=400&h=500&fit=crop'],desc:'Montre connectée avec écran AMOLED, GPS intégré, capteur cardio et 50mm de防水. Autonomie de 14 jours. Compatible iOS et Android.'},
+  {id:'d3',name:'Parfum Océan Bleu',shop:'Lili-Store',shopId:'',price:32000,prix_barre:45000,stars:4.7,reviews:189,stock:8,category:'Beauté',hot:false,likes:8900,image:'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=500&fit=crop'],desc:'Eau de parfum aux notes marines et boisées. Notes de tête : bergamote, citron. Notes de cœur : lavande, sauge. Notes de fond : bois de cèdre, ambre.'},
+  {id:'d4',name:'Casque audio sans fil',shop:'Lili-Store',shopId:'',price:65000,prix_barre:89000,stars:4.4,reviews:756,stock:23,category:'Électronique',hot:false,likes:45200,image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=500&fit=crop'],desc:'Casque Bluetooth 5.3 avec réduction de bruit active. Autonomie 40h, pliable, léger (250g). Driver 40mm avec codec LDAC pour un son haute résolution.'},
+  {id:'d5',name:'Ensemble sport fitness',shop:'Lili-Store',shopId:'',price:28000,prix_barre:0,stars:4.3,reviews:234,stock:55,category:'Mode',hot:false,likes:3100,image:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&h=500&fit=crop'],desc:'Ensemble sportif en tissu respirant. T-shirt technique + short avec poche zippée. Taille élastiquée avec cordon de serrage. Disponible en plusieurs coloris.'},
+  {id:'d6',name:'Lampe design connectée',shop:'Lili-Store',shopId:'',price:22000,prix_barre:0,stars:4.2,reviews:98,stock:12,category:'Maison',hot:false,likes:1800,image:'https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=500&fit=crop'],desc:'Lampe LED connectée avec 16 millions de couleurs. Contrôle via app ou voix (Alexa/Google). Minuteur, réveil simulé aube. Base en aluminium brossé.'},
+  {id:'d7',name:'Chaussures de running',shop:'Lili-Store',shopId:'',price:55000,prix_barre:78000,stars:4.9,reviews:1123,stock:34,category:'Mode',hot:true,likes:97800,image:'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400&h=500&fit=crop'],desc:'Chaussures de running avec semelle en gel absorbant les chocs. Tige en mesh respirant, semelle extérieure en caoutchouc haute adhérence. Poids : 280g.'},
+  {id:'d8',name:'Kit accessoires bureau',shop:'Lili-Store',shopId:'',price:15000,prix_barre:0,stars:4.1,reviews:67,stock:100,category:'Maison',hot:false,likes:520,image:'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=400&h=500&fit=crop'],desc:'Kit complet 7 pièces : organiseur stylos, sous-verre, marque-pages, bloc-notes, stylo, porte-téléphone et range-câbles. Design minimaliste.'},
+  {id:'d9',name:'Crème hydratante visage',shop:'Lili-Store',shopId:'',price:12000,prix_barre:0,stars:4.5,reviews:456,stock:0,category:'Beauté',hot:false,likes:34600,image:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=500&fit=crop'],desc:'Crème hydratante enrichie à l\'acide hyaluronique et au beurre de karité. Textures légère non grasse. Convient à tous les types de peaux. Testée dermatologiquement.'},
+  {id:'d10',name:'Sac à dos urbain 30L',shop:'Lili-Store',shopId:'',price:38000,prix_barre:52000,stars:4.6,reviews:289,stock:21,category:'Accessoires',hot:false,likes:15700,image:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1567721913486-6585f069b332?w=400&h=500&fit=crop'],desc:'Sac à dos 30L en polyester recyclé. Compartiment rembourré pour PC 15.6", poche antivol, port USB intégré, soufflet à chaussures. Idéal voyage et quotidien.'},
+  {id:'d11',name:'Enceinte Bluetooth portable',shop:'Lili-Store',shopId:'',price:25000,prix_barre:35000,stars:4.3,reviews:567,stock:0,category:'Électronique',hot:false,likes:23400,image:'https://images.unsplash.com/photo-1589003077984-894e133dabab?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1589003077984-894e133dabab?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=500&fit=crop'],desc:'Enceinte Bluetooth IPX7 étanche. Autonomie 20h, son 360°, double micro pour appels. Format poche (200g). Fonction power bank.'},
+  {id:'d12',name:'Lunettes de soleil aviator',shop:'Lili-Store',shopId:'',price:18000,prix_barre:0,stars:4.0,reviews:134,stock:67,category:'Accessoires',hot:false,likes:6900,image:'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=500&fit=crop',images:['https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=500&fit=crop','https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=400&h=500&fit=crop'],desc:'Lunettes aviator monture métal léger, verres polarisés anti-UV400. Protection 100% UVA/UVB. Poids : 28g. Étui rigide inclus.'},
+];
 
 async function loadProducts(){
   try{
@@ -458,9 +559,10 @@ async function loadProducts(){
       const images=p.main_image?[p.main_image]:[];
       return{
       id:p.id,name:p.nom||'Produit',shop:boutique?.config?.general?.nom||'Lili-Store',shopId:p.user_id||'',
-      price:p.prix||0,prix_barre:p.prix_initial||0,stars:4,image:p.main_image||'',images,
-      desc:p.description||'',stock:p.stock||0,category:p.categorie||'',hot:false
+      price:p.prix||0,prix_barre:p.prix_initial||0,stars:4.5,reviews:0,image:p.main_image||'',images,
+      desc:p.description||'',stock:p.stock||0,category:p.categorie||'',hot:false,likes:Math.floor(Math.random()*500000)+500
     }});
+    STATE.products=shuffle([...STATE.products,...DEMO_PRODUCTS]);
     try{localStorage.setItem('_prods',JSON.stringify(STATE.products));localStorage.setItem('_conf',JSON.stringify(STATE.config));localStorage.setItem('_cache_ts',Date.now());}catch(e){}
     STATE.filtered=[...STATE.products];
     document.getElementById('totalProducts').textContent=STATE.products.length;
@@ -470,7 +572,7 @@ async function loadProducts(){
     console.error('Error:',e);
     try{
       const cp=localStorage.getItem('_prods'),cc=localStorage.getItem('_conf'),cacheTs=localStorage.getItem('_cache_ts');
-      if(cp&&cacheTs&&Date.now()-Number(cacheTs)<3600000){STATE.products=JSON.parse(cp);STATE.config=JSON.parse(cc);
+      if(cp&&cacheTs&&Date.now()-Number(cacheTs)<3600000){STATE.products=shuffle([...JSON.parse(cp),...DEMO_PRODUCTS]);STATE.config=JSON.parse(cc);
         if(STATE.config?.general?.nom)document.getElementById('shopName').textContent=STATE.config.general.nom;
         if(STATE.config?.general?.description)document.getElementById('shopDesc').textContent=STATE.config.general.description;
         STATE.filtered=[...STATE.products];
@@ -524,7 +626,6 @@ function renderProducts(){
 function buildCard(p,i){
   const liked=STATE.liked.has(p.id);
   const imgs=p.images&&p.images.length?p.images:[p.image||''];
-  const s=(c='#F5A623')=>`<svg viewBox="0 0 24 24" width="12" height="12" fill="${c}" stroke="${c}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
   return `
   <div class="tile-card" style="animation-delay:${(i%8)*60}ms" onclick="openProduct('${p.id}')">
     <div class="tile-cover">
@@ -543,7 +644,7 @@ function buildCard(p,i){
         <div class="tile-meta">${esc(p.shop)}</div>
       </div>
       <div class="tile-price">${p.prix_barre&&p.prix_barre>p.price?`<span class="price-barre">${formatPrice(p.prix_barre)}</span> `:''}${formatPrice(p.price)}</div>
-      <div class="tile-stars">${s().repeat(p.stars)}${s('transparent').repeat(5-p.stars)}</div>
+      <div class="tile-stars">${renderStars(p.stars,p.reviews)}<span class="tile-likes">${ic('heart-o')} ${formatNum(p.likes)}</span></div>
       <div class="tile-actions" onclick="event.stopPropagation()">
         <button class="tile-btn-cart" onclick="openOrderForm('${p.id}')">${ic('cart')} Commander</button>
         <button class="tile-btn-share" onclick="shareProduct('${p.id}',event)" title="Partager">${ic('share')}</button>
@@ -552,43 +653,148 @@ function buildCard(p,i){
   </div>`;
 }
 
+function getComments(id){try{return JSON.parse(localStorage.getItem('_comments_'+id)||'[]');}catch(e){return [];}}
+function saveComments(id,arr){try{localStorage.setItem('_comments_'+id,JSON.stringify(arr));}catch(e){}}
+function renderComments(id){const c=getComments(id);return c.length?c.map(c=>`<div class="modal-comment-item"><div class="name">${esc(c.n||'Anonyme')}</div><div class="text">${esc(c.t)}</div><div class="date">${c.d||''}</div></div>`).join(''):'<div style="font-size:.8rem;color:var(--text-3);padding:4px 0;">Aucun commentaire. Soyez le premier à commenter.</div>';}
+function toggleLike(id){
+  const p=STATE.products.find(x=>String(x.id)===String(id));
+  if(!p)return;
+  const liked=STATE.liked.has(id);
+  if(liked){STATE.liked.delete(id);p.likes=Math.max(0,p.likes-1);}else{STATE.liked.add(id);p.likes+=1;}
+  try{localStorage.setItem('_liked',JSON.stringify([...STATE.liked]));}catch(e){}
+  const btn=document.querySelector('.modal-like-btn');
+  if(btn){btn.classList.toggle('liked',!liked);btn.innerHTML=(!liked?ic('heart'):ic('heart-o'))+'<span class="modal-like-count">'+formatNum(p.likes)+'</span>';}
+}
+function toggleComments(id){
+  const f=document.getElementById('commentForm'+id);
+  if(!f)return;
+  f.style.display=f.style.display==='none'?'flex':'none';
+  if(f.style.display==='flex')f.querySelector('textarea')?.focus();
+}
+function submitComment(id){
+  const inp=document.getElementById('commentInput'+id);
+  const list=document.getElementById('commentList'+id);
+  if(!inp||!list||!inp.value.trim())return;
+  const comments=getComments(id);
+  comments.unshift({n:'Vous',t:inp.value.trim(),d:new Date().toLocaleDateString('fr-FR')});
+  saveComments(id,comments);
+  inp.value='';
+  list.innerHTML=renderComments(id);
+  document.getElementById('commentForm'+id).style.display='none';
+  showToast('Commentaire ajouté !','success');
+}
+
+function getUserProfile(){try{const p=localStorage.getItem('_user');return p?JSON.parse(p):null;}catch(e){return null;}}
+function saveUserProfile(p){try{localStorage.setItem('_user',JSON.stringify(p));}catch(e){}}
+function openUserProfile(){
+  const p=getUserProfile();
+  document.getElementById('profNom').value=p?.nom||'';
+  document.getElementById('profTel').value=p?.tel||'';
+  document.getElementById('profAddr').value=p?.addr||'';
+  document.getElementById('userProfileModal').classList.add('active');
+  requestAnimationFrame(()=>{const s=document.querySelector('#userProfileModal .modal-sheet');if(s){s.style.touchAction='pan-y';s.addEventListener('touchmove',()=>s.classList.add('expanded'),{once:true,passive:true});s.addEventListener('wheel',()=>s.classList.add('expanded'),{once:true,passive:true});}});
+}
+function fermerUserProfile(){document.getElementById('userProfileModal').classList.remove('active');}
+function sauvegarderProfil(){
+  const nom=document.getElementById('profNom').value.trim();
+  const tel=document.getElementById('profTel').value.trim();
+  const addr=document.getElementById('profAddr').value.trim();
+  if(!nom||!tel||!addr){showToast('Veuillez remplir tous les champs','error');return;}
+  saveUserProfile({nom,tel,addr});
+  fermerUserProfile();
+  showToast('Profil enregistré !','success');
+  document.getElementById('userBtn')?.classList.add('has-profile');
+}
+function deconnecterProfil(){
+  try{localStorage.removeItem('_user');}catch(e){}
+  fermerUserProfile();
+  showToast('Informations effacées','info');
+  document.getElementById('userBtn')?.classList.remove('has-profile');
+}
+
 function openProduct(id){
   const p=STATE.products.find(x=>String(x.id)===String(id));
   if(!p)return;
   const modal=document.getElementById('modalContent');
-  const s=(c='#F5A623')=>`<svg viewBox="0 0 24 24" width="14" height="14" fill="${c}" stroke="${c}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
   const imgs=p.images&&p.images.length?p.images:[p.image||''];
+  const related=STATE.products.filter(x=>x.category===p.category&&x.id!==p.id).slice(0,4);
   modal.innerHTML=`
-    <div style="position:relative;overflow:hidden">
-      <div class="tile-sk" style="height:200px"></div>
-      <div style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none" id="modalGallery">
-        ${imgs.map(url=>`<img src="${esc(url)}" class="modal-product-img" alt="" style="scroll-snap-align:start;flex-shrink:0;width:100%;height:200px" onclick="openImagePreview(this.src)" onload="this.classList.add('loaded');this.closest('#modalGallery').previousElementSibling.classList.add('hide')" onerror="this.classList.add('loaded');this.closest('#modalGallery').previousElementSibling.classList.add('hide')">`).join('')}
+    <div class="modal-img-wrap">
+      <div class="tile-sk"></div>
+      <div class="modal-gallery" id="modalGallery">
+        ${imgs.map(url=>`<img src="${esc(url)}" alt="" onclick="openImagePreview(this.src)" onload="this.classList.add('loaded');this.closest('.modal-img-wrap').querySelector('.tile-sk').classList.add('hide')" onerror="this.classList.add('loaded');this.closest('.modal-img-wrap').querySelector('.tile-sk').classList.add('hide')">`).join('')}
       </div>
-      ${imgs.length>1?`<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3">${imgs.map((_,j)=>`<span style="width:6px;height:6px;border-radius:50%;background:${j===0?'white':'rgba(255,255,255,.4)'};transition:all .25s" class="modal-dot" data-idx="${j}"></span>`).join('')}</div>`:''}
+      ${imgs.length>1?`<div class="modal-img-dots">${imgs.map((_,j)=>`<span class="modal-img-dot${j===0?' active':''}"></span>`).join('')}</div>`:''}
+      <div class="modal-img-gradient"></div>
     </div>
     <div class="modal-body">
-      <div class="modal-name">${esc(p.name)}</div>
-      <div class="tile-meta" style="margin-bottom:8px">${ic('store')} ${esc(p.shop)}</div>
-      <div class="modal-price">${p.prix_barre&&p.prix_barre>p.price?`<span class="price-barre">${formatPrice(p.prix_barre)}</span> `:''}${formatPrice(p.price)}</div>
-      <div class="tile-stars" style="margin-bottom:12px">${s().repeat(p.stars)}${s('transparent').repeat(5-p.stars)}</div>
-      <div class="modal-desc">${esc(p.desc)}</div>
-      <div style="display:flex;gap:8px;margin-top:12px">
-        <button class="tile-btn-cart" style="flex:1;padding:14px" onclick="closeProductModal();openOrderForm('${p.id}')">${ic('cart')} Commander</button>
-        <button class="tile-btn-share" style="width:48px;height:48px" onclick="event.stopPropagation();shareProduct('${p.id}')" title="Partager">${ic('share')}</button>
+      <div class="modal-body-top">
+        <div>
+          <div class="modal-name">${esc(p.name)}</div>
+          <div class="modal-meta">${ic('store')} ${esc(p.shop)}</div>
+        </div>
       </div>
-    </div>`;
+      <div class="modal-price-row">
+        <span class="modal-price">${formatPrice(p.price)}</span>
+        ${p.prix_barre&&p.prix_barre>p.price?`<span class="modal-price-barre">${formatPrice(p.prix_barre)}</span>`:''}
+      </div>
+      <div class="modal-stars">${renderStars(p.stars,p.reviews)}</div>
+      <div class="modal-eng-row">
+        <button class="modal-like-btn${STATE.liked.has(p.id)?' liked':''}" onclick="toggleLike('${p.id}')">${STATE.liked.has(p.id)?ic('heart'):ic('heart-o')}<span class="modal-like-count">${formatNum(p.likes)}</span></button>
+        <button class="modal-comment-btn" onclick="toggleComments('${p.id}')">${ic('comment')}<span>Commenter</span></button>
+      </div>
+      <div class="modal-desc-wrap">
+        <div class="modal-section-title">${ic('info')} Description</div>
+        <div class="modal-desc">${esc(p.desc||'Aucune description disponible.')}</div>
+      </div>
+      <div class="modal-comments" id="modalComments">
+        <div class="modal-section-title">${ic('comment')} Commentaires</div>
+        <div class="modal-comment-form" id="commentForm${esc(p.id)}" style="display:none">
+          <textarea class="modal-comment-input" id="commentInput${esc(p.id)}" placeholder="Écrire un commentaire..." rows="2"></textarea>
+          <button class="modal-comment-submit" onclick="submitComment('${p.id}')">Publier</button>
+        </div>
+        <div class="modal-comment-list" id="commentList${esc(p.id)}">${renderComments(p.id)}</div>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <button class="modal-cta-btn" onclick="closeProductModal();setTimeout(()=>openOrderForm('${p.id}'),350)">${ic('cart')} Commander</button>
+      <button class="modal-cta-share" onclick="event.stopPropagation();shareProduct('${p.id}')" title="Partager">${ic('share')}</button>
+    </div>
+    ${related.length>0?`
+    <div class="modal-related">
+      <div class="modal-section-title">${ic('grid')} Vous aimerez aussi</div>
+      <div class="modal-related-grid">
+        ${related.map(r=>`
+          <div class="modal-related-card" onclick="closeProductModal();setTimeout(()=>openProduct('${r.id}'),350)">
+            <img class="modal-related-img" src="${esc(r.image||'')}" alt="" loading="lazy" onerror="this.style.display='none'">
+            <div class="modal-related-body">
+              <div class="modal-related-name">${esc(r.name)}</div>
+              <div class="modal-related-price">${formatPrice(r.price)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`:''}`;
   document.getElementById('productModal').classList.add('active');
   document.body.style.overflow='hidden';
-  setTimeout(()=>{
+  requestAnimationFrame(()=>{
+    const sheet=document.querySelector('.modal-sheet');
+    if(!sheet)return;
+    sheet.style.touchAction='pan-y';
+    const expand=()=>{sheet.classList.add('expanded');sheet.style.touchAction='';};
+    sheet.addEventListener('touchmove',expand,{once:true,passive:true});
+    sheet.addEventListener('wheel',expand,{once:true,passive:true});
     const gallery=document.getElementById('modalGallery');
-    if(!gallery)return;
-    gallery.addEventListener('scroll',()=>{
-      const dots=gallery.parentElement?.querySelectorAll('.modal-dot');
-      if(!dots)return;
-      const idx=Math.round(gallery.scrollLeft/gallery.clientWidth);
-      dots.forEach((d,i)=>d.style.background=i===idx?'white':'rgba(255,255,255,.4)');
-    });
-  },100);
+    if(gallery&&imgs.length>1){
+      if(gallery._scrollClean)gallery.removeEventListener('scroll',gallery._scrollClean);
+      const onScroll=()=>{
+        const dots=gallery.closest('.modal-img-wrap')?.querySelectorAll('.modal-img-dot');
+        if(!dots)return;
+        dots.forEach((d,i)=>d.classList.toggle('active',i===Math.round(gallery.scrollLeft/gallery.clientWidth)));
+      };
+      gallery.addEventListener('scroll',onScroll);
+      gallery._scrollClean=onScroll;
+    }
+  });
 }
 
 function closeProductModal(){
@@ -621,9 +827,10 @@ function shareProduct(id,e){
   const p=STATE.products.find(x=>String(x.id)===String(id));
   if(!p)return;
   const url=window.location.origin+window.location.pathname+'?product='+id;
+  const img=p.image||'';
   const txt=p.name+' — '+formatPrice(p.price);
   if(navigator.share){navigator.share({title:p.name,text:txt,url}).catch(()=>{});}
-  else{copyToClipboard(url);}
+  else{const full=url+'\n\n'+txt+(img?'\n'+img:'');copyToClipboard(full);}
 }
 function shareShop(){
   const url=window.location.origin+window.location.pathname;
@@ -707,6 +914,8 @@ function ic(n){
     'arrow-l':_('<path d="M15 18l-6-6 6-6"/>'),
     'arrow-d':_('<path d="M6 9l6 6 6-6"/>'),
     'search':_('<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>'),
+    'grid':_('<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>'),
+    'comment':_('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'),
   })[n]||'';
 }
 
@@ -747,7 +956,8 @@ function openOrderForm(productId){
   const p=STATE.products.find(x=>String(x.id)===String(productId));
   if(!p)return showToast('Produit introuvable','error');
   if(p.stock===0){showToast('Ce produit est en rupture de stock','error');return;}
-  orderState={product:p,nom:'',telephone:'',adresse:'',ville:'autres',modePaiement:'',numeroPaiement:'',step:1,loading:false,errors:{}};
+  const prof=getUserProfile();
+  orderState={product:p,nom:prof?.nom||'',telephone:prof?.tel||'',adresse:prof?.addr||'',ville:'autres',modePaiement:'',numeroPaiement:'',step:prof?2:1,loading:false,errors:{}};
   document.getElementById('orderModal').innerHTML=renderOrderForm();
   document.body.style.overflow='hidden';
   setTimeout(()=>document.querySelector('#orderModal .cmd-modal')?.classList.add('in'),50);
@@ -1056,6 +1266,7 @@ function toggleMenu(){
         <button class="menu-drawer-link" onclick="document.querySelector('.menu-drawer-overlay')?.remove();document.getElementById('searchInput')?.focus()">${ic('search')} Rechercher</button>
         <button class="menu-drawer-link" onclick="document.querySelector('.menu-drawer-overlay')?.remove();window.scrollTo({top:0,behavior:'smooth'})">${ic('arrow-d')} Haut de page</button>
         <button class="menu-drawer-link" id="menuInstallBtn" onclick="document.querySelector('.menu-drawer-overlay')?.remove();installApp()" style="display:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Installer l'app</button>
+        <button class="menu-drawer-link" onclick="document.querySelector('.menu-drawer-overlay')?.remove();openUserProfile()">${ic('user')} Mon profil</button>
         <button class="menu-drawer-link" onclick="document.querySelector('.menu-drawer-overlay')?.remove();shareShop()">${ic('share')} Partager la boutique</button>
       </div>
     </div>

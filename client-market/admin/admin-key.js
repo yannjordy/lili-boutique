@@ -1,0 +1,3 @@
+// Clé service_role pour contourner RLS (usage local uniquement)
+// Ne pas partager ce fichier
+var SERVICE_ROLE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqY2ticWJxeGN3emNybG11dnpmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDUxOTUzMywiZXhwIjoyMDc2MDk1NTUzfQ.H_053s_YkrDprbDYsO6iQps11SNz-ZY5VpQO3xerSQo';
